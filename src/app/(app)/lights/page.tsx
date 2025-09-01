@@ -43,7 +43,6 @@ export default function Page() {
           </div>
         }
       />
-
       <div className='flex items-center gap-4'>
         <SearchBar />
         <div className='flex items-center gap-2'>
@@ -67,7 +66,6 @@ export default function Page() {
           </GlowButton>
         </div>
       </div>
-
       <MainCard
         title='Carrefour AFI Brasov'
         subtitle='Navigation System'
