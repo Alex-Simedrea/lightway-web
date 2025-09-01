@@ -14,13 +14,7 @@ import {
   SidebarMenuItem
 } from '@/components/ui/sidebar';
 import { IconPlus } from '@tabler/icons-react';
-import {
-  Building2,
-  ChartColumnBig,
-  LayoutDashboard,
-  Lightbulb,
-  Settings
-} from 'lucide-react';
+import { ChartColumnBig, Lightbulb, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
@@ -49,22 +43,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent className='mt-2 flex flex-1 flex-col gap-2'>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link
-                href='/dashboard'
-                className={cn(
-                  'flex items-center gap-2 rounded-md px-2 py-1',
-                  pathname === '/dashboard'
-                    ? 'bg-white/10 text-white'
-                    : 'text-white/60 hover:text-white'
-                )}
-              >
-                <LayoutDashboard className='h-5 w-5 text-white/60' />
-                <span className='text-white'>Dashboard</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
             <SidebarMenuButton asChild className='rounded-md'>
               <Link
                 href='/lights'
@@ -80,22 +58,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link
-                href='/properties'
-                className={cn(
-                  'flex items-center gap-2 rounded-md px-2 py-1',
-                  pathname === '/properties'
-                    ? 'bg-white/10 text-white'
-                    : 'text-white/60 hover:text-white'
-                )}
-              >
-                <Building2 className='h-5 w-5 text-white/60' />
-                <span className='text-white'>Properties</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <SidebarMenuItem></SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link
