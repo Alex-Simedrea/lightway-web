@@ -1,6 +1,13 @@
 //fake data again - o sa schimbam asta
 import { ArrowDown } from 'lucide-react';
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 
 const data = [
   { name: 'Mon', scans: 1400 },

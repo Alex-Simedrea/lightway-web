@@ -1,7 +1,7 @@
 import ModalLayout from '@/components/common/(modals)/layout';
 import Modal from '@/components/common/(modals)/modal';
 import { Card, CardContent } from '@/components/ui/card';
-import { Lightbulb, Scan } from 'lucide-react';
+import { Lightbulb, ScanText } from 'lucide-react';
 import { useState } from 'react';
 import { FiEdit2 } from 'react-icons/fi';
 
@@ -96,8 +96,8 @@ export default function MainCard({
               <span className='font-onest font-semibold'>12</span>
             </div>
             <div className='flex items-center gap-1 text-sm'>
-              <Scan className='h-3 w-3 font-bold' />
-              <span className='font-onest font-semibold'>200m²</span>
+              <ScanText className='h-3 w-3 font-bold' />
+              <span className='font-onest font-semibold'>2.5k scans</span>
             </div>
           </div>
           <div className='ml-auto flex items-center gap-2 text-sm font-semibold text-blue-500 drop-shadow-[0_0_5px_rgba(96,165,250,0.8)]'>

@@ -121,15 +121,14 @@ export default function Page() {
           }
         ]}
       >
-        {/*this is the random row of cards*/}
         <div className='flex gap-4 p-2 text-black'>
-          <div className='flex flex-col rounded-xl bg-gray-100 px-5 py-4 shadow-sm'>
-            <span className='text-lg font-bold'>12</span>
-            <span className='text-sm font-semibold'>lights</span>
+          <div className='flex flex-col rounded-2xl bg-gray-100 px-5 py-4 shadow-sm'>
+            <span className='font-onest text-xl font-bold'>12</span>
+            <span className='font-onest text-sm font-semibold'>lights</span>
           </div>
-          <div className='flex flex-col rounded-xl bg-gray-100 px-5 py-4 shadow-sm'>
-            <span className='text-lg font-bold'>200 m²</span>
-            <span className='text-sm font-semibold'>covered</span>
+          <div className='flex flex-col rounded-2xl bg-gray-100 p-4 shadow-sm'>
+            <span className='font-onest text-xl font-bold'>200 m²</span>
+            <span className='font-onest text-sm font-semibold'>covered</span>
           </div>
           <ScanChartCardPositive />
           <div className='flex flex-col rounded-xl bg-gray-100 px-5 py-4 shadow-sm'>
@@ -169,15 +168,14 @@ export default function Page() {
         ]}
         className='flex items-center gap-4 rounded-xl bg-white p-4 shadow-xs'
       >
-        {/*this is the random row of cards for the second card*/}
-        <div className='flex gap-4 p-2 text-black'>
-          <div className='flex flex-col rounded-xl bg-gray-100 px-5 py-4 shadow-sm'>
-            <span className='text-lg font-bold'>12</span>
-            <span className='text-sm font-semibold'>lights</span>
+        <div className='flex gap-4 p-4 text-black'>
+          <div className='flex flex-col rounded-2xl bg-gray-100 px-5 py-4 shadow-sm'>
+            <span className='font-onest text-xl font-bold'>12</span>
+            <span className='font-onest text-sm font-semibold'>lights</span>
           </div>
-          <div className='flex flex-col rounded-xl bg-gray-100 px-5 py-4 shadow-sm'>
-            <span className='text-lg font-bold'>200 m²</span>
-            <span className='text-sm font-semibold'>covered</span>
+          <div className='flex flex-col rounded-2xl bg-gray-100 p-4 shadow-sm'>
+            <span className='font-onest text-xl font-bold'>200 m²</span>
+            <span className='font-onest text-sm font-semibold'>covered</span>
           </div>
           <ScanChartCardNegative />
           <div className='relative flex flex-col rounded-xl bg-gray-100 px-5 py-4 shadow-sm'>
