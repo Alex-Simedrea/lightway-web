@@ -18,18 +18,20 @@ export const useLogin = () => {
 };
 
 export const register = async ({
+  username,
   firstName,
   lastName,
   email,
   password
 }: {
+  username: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
 }) => {
   return api
-    .post('/auth/register', { firstName, lastName, email, password })
+    .post('/auth/register', { username, firstName, lastName, email, password })
     .then((res) => res.data);
 };
 

@@ -18,7 +18,8 @@ import { z } from 'zod';
 const schema = z.object({
   email: z
     .string()
-    .min(1, 'Email is required')
+    .min(8, 'Email is required')
+    .max(40, 'Email must be at most 40 characters long')
     .refine(validator.isEmail, { error: 'Invalid email address' }),
   password: z
     .string()

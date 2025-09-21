@@ -1,4 +1,5 @@
 'use client';
+import { useRegister } from '@/api/auth';
 import { AuthLayout } from '@/components/auth/auth-layout';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,12 +14,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import validator from 'validator';
 import { z } from 'zod';
-import { useRegister } from '@/api/auth';
 
 const schema = z
   .object({
-    firstName: z.string().min(1, 'First name is required'),
-    lastName: z.string().min(1, 'Last name is required'),
+    username: z
+      .string()
+      .min(3, 'Username must be at least 3 characters long')
+      .max(40, 'Username must be at most 40 characters long'),
+    firstName: z
+      .string()
+      .min(1, 'First name is required')
+      .max(40, 'Username must be at most 40 characters long'),
+    lastName: z
+      .string()
+      .min(1, 'Last name is required')
+      .max(40, 'Username must be at most 40 characters long'),
     email: z
       .string()
       .min(1, 'Email is required')
@@ -55,6 +65,19 @@ export default function () {
 
   return (
     <AuthLayout title={'Register'} form={form} onSubmit={onSubmit}>
+      <FormField
+        control={form.control}
+        name='username'
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Username</FormLabel>
+            <FormControl>
+              <Input placeholder='kjhgb' {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <FormField
         control={form.control}
         name='firstName'

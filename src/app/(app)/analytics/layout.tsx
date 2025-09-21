@@ -9,4 +9,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {children}
     </main>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6cffb3c18f0495baebaae2967af472144a7fd67c
