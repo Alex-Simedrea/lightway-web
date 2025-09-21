@@ -1,15 +1,10 @@
 'use client';
 
-import GlowButton from '@/components/common/glow-button';
+import AnalyticsCard from '@/components/common/analytics-card';
 import Header from '@/components/common/header';
-import SearchBar from '@/components/common/search-bar';
 import { Lightbulb, Plus, Scan } from 'lucide-react';
-import { useState } from 'react';
 
 export default function Page() {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState('all');
-
   return (
     <div className='flex w-full flex-col gap-6 rounded-xl'>
       <Header
@@ -33,29 +28,7 @@ export default function Page() {
           </div>
         }
       />
-      <div className='flex items-center gap-4'>
-        <SearchBar />
-        <div className='flex items-center gap-2'>
-          <GlowButton
-            className='rounded-full px-4'
-            variant={selectedFilter === 'all' ? 'default' : 'muted'}
-          >
-            All
-          </GlowButton>
-          <GlowButton
-            className='rounded-full px-4'
-            variant={selectedFilter === 'navigation' ? 'default' : 'muted'}
-          >
-            Navigation systems
-          </GlowButton>
-          <GlowButton
-            className='rounded-full px-4'
-            variant={selectedFilter === 'information' ? 'default' : 'muted'}
-          >
-            Information
-          </GlowButton>
-        </div>
-      </div>
+      <AnalyticsCard title='Carrefour AFI Brasov'></AnalyticsCard>
     </div>
   );
 }
