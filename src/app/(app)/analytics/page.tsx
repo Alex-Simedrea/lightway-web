@@ -1,15 +1,7 @@
 'use client';
 
-<<<<<<< HEAD
 import AnalyticsCard from '@/components/common/analytics-card';
 import Header from '@/components/common/header';
-import { Lightbulb, Plus, Scan } from 'lucide-react';
-
-export default function Page() {
-=======
-import GlowButton from '@/components/common/glow-button';
-import Header from '@/components/common/header';
-import SearchBar from '@/components/common/search-bar';
 import { Lightbulb, Plus, Scan } from 'lucide-react';
 import { useState } from 'react';
 
@@ -17,7 +9,6 @@ export default function Page() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState('all');
 
->>>>>>> 6cffb3c18f0495baebaae2967af472144a7fd67c
   return (
     <div className='flex w-full flex-col gap-6 rounded-xl'>
       <Header
@@ -41,36 +32,7 @@ export default function Page() {
           </div>
         }
       />
-<<<<<<< HEAD
       <AnalyticsCard title='Carrefour AFI Brasov'></AnalyticsCard>
     </div>
   );
 }
-=======
-      <div className='flex items-center gap-4'>
-        <SearchBar />
-        <div className='flex items-center gap-2'>
-          <GlowButton
-            className='rounded-full px-4'
-            variant={selectedFilter === 'all' ? 'default' : 'muted'}
-          >
-            All
-          </GlowButton>
-          <GlowButton
-            className='rounded-full px-4'
-            variant={selectedFilter === 'navigation' ? 'default' : 'muted'}
-          >
-            Navigation systems
-          </GlowButton>
-          <GlowButton
-            className='rounded-full px-4'
-            variant={selectedFilter === 'information' ? 'default' : 'muted'}
-          >
-            Information
-          </GlowButton>
-        </div>
-      </div>
-    </div>
-  );
-}
->>>>>>> 6cffb3c18f0495baebaae2967af472144a7fd67c

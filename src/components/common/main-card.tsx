@@ -11,11 +11,14 @@ type MainCardProps = {
   items: LedData[];
   icon?: React.ReactNode;
   children?: React.ReactNode;
+  lightCount?: number;
+  totalScans?: number;
 };
 
 type LedData = {
   label: string;
-  aisle: string;
+  errorRate: string;
+  latency: string;
   scans: number;
   lastScanned: string;
   lightId: string;
@@ -28,13 +31,14 @@ type LedRowProps = LedData & {
 
 function LedRow({
   label,
-  aisle,
+  errorRate,
+  latency,
   scans,
   lastScanned,
   onLabelClick
 }: LedRowProps) {
   return (
-    <div className='grid w-full grid-cols-[1.5fr_1.5fr_1.5fr_3fr_auto] items-center rounded-2xl bg-gray-100 p-3 shadow-sm'>
+    <div className='grid w-full grid-cols-[2fr_1.5fr_1.5fr_1fr_2.5fr_auto] items-center rounded-2xl bg-gray-100 p-3'>
       <div
         className='flex cursor-pointer items-center gap-2'
         onClick={onLabelClick}
@@ -49,9 +53,10 @@ function LedRow({
         </span>
       </div>
 
-      <span className='text-sm font-semibold text-gray-900'>Aisle {aisle}</span>
+      <span className='text-sm font-semibold text-gray-900'>{errorRate}</span>
+      <span className='text-sm font-semibold text-gray-900'>{latency}</span>
       <span className='text-sm font-semibold text-gray-900'>
-        {scans}k scans
+        {scans} scans
       </span>
       <span className='text-sm font-semibold text-gray-900'>
         Last Scanned {lastScanned} ago
@@ -74,6 +79,8 @@ export default function MainCard({
   items,
   icon,
   children,
+  lightCount,
+  totalScans,
   ...props
 }: MainCardProps & React.ComponentProps<typeof Card>) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -84,20 +91,26 @@ export default function MainCard({
     setModalOpen(true);
   };
 
+  // Calculate totals from items if not provided
+  const displayLightCount = lightCount ?? items.length;
+  const displayTotalScans = totalScans ?? items.reduce((sum, item) => sum + item.scans, 0);
+
   return (
-    <Card {...props} className='flex w-full gap-2 p-4'>
+    <Card {...props} className='flex w-full gap-2'>
       <CardContent className='flex flex-col gap-2'>
         <div className='flex items-center justify-between gap-2.5'>
-          <h2 className='text-m font-bold font-medium'>{title}</h2>
-          <h2 className='text-m font-onest font-semibold'>•</h2>
+          <h2 className='font-medium'>{title}</h2>
+          <h2 className='font-semibold'>•</h2>
           <div className='flex items-center gap-4'>
             <div className='flex items-center gap-1 text-sm'>
               <Lightbulb className='h-3 w-3 font-bold' />
-              <span className='font-onest font-semibold'>12</span>
+              <span className='font-onest font-semibold'>{displayLightCount}</span>
             </div>
             <div className='flex items-center gap-1 text-sm'>
               <ScanText className='h-3 w-3 font-bold' />
-              <span className='font-onest font-semibold'>2.5k scans</span>
+              <span className='font-onest font-semibold'>
+                {displayTotalScans > 0 ? `${displayTotalScans} scans` : '0 scans'}
+              </span>
             </div>
           </div>
           <div className='ml-auto flex items-center gap-2 text-sm font-semibold text-blue-500 drop-shadow-[0_0_5px_rgba(96,165,250,0.8)]'>
@@ -123,7 +136,8 @@ export default function MainCard({
           <Modal isOpen={modalOpen}>
             <ModalLayout
               label={selectedLed.label}
-              aisle={selectedLed.aisle}
+              errorRate={selectedLed.errorRate}
+              latency={selectedLed.latency}
               scans={selectedLed.scans}
               lastScanned={selectedLed.lastScanned}
               lightId={selectedLed.lightId}

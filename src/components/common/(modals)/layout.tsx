@@ -9,7 +9,8 @@ import {
 
 type ModalLayoutProps = {
   label: string;
-  aisle: string;
+  errorRate: string;
+  latency: string;
   scans: number;
   lastScanned: string;
   lastEdit: string;
@@ -19,7 +20,8 @@ type ModalLayoutProps = {
 
 export default function ModalLayout({
   label,
-  aisle,
+  errorRate,
+  latency,
   scans,
   lastScanned,
   lastEdit,
@@ -72,16 +74,22 @@ export default function ModalLayout({
               </div>
             </div>
 
-            <div className='col-span-2 space-y-3 rounded-xl border border-gray-200 bg-white p-2 pl-3'>
-              <div className='text-black-400 text-sm font-semibold'>Zone</div>
+            <div className='col-span-1 space-y-3 rounded-xl border border-gray-200 bg-white p-2 pl-3'>
+              <div className='text-black-400 text-sm font-semibold'>Error Rate</div>
               <div className='flex items-center gap-2'>
-                <Blocks className='h-6 w-6' />
-                <span className='text-lg font-bold'>Aisle {aisle}</span>
+                <span className='text-lg font-bold'>{errorRate}</span>
+              </div>
+            </div>
+
+            <div className='col-span-1 space-y-3 rounded-xl border border-gray-200 bg-white p-2 pl-3'>
+              <div className='text-black-400 text-sm font-semibold'>Latency</div>
+              <div className='flex items-center gap-2'>
+                <span className='text-lg font-bold'>{latency}</span>
               </div>
             </div>
 
             <div className='col-span-1 space-y-2 rounded-xl border border-gray-200 bg-white p-1 pl-3'>
-              <div className='text-2xl font-bold'>{scans} k</div>
+              <div className='text-2xl font-bold'>{scans}</div>
               <div className='text-black-500 text-sm font-semibold'>scans</div>
             </div>
 
