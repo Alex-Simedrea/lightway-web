@@ -16,7 +16,7 @@ import {
   Text
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { api } from '@convex/_generated/api';
+import { api } from '../../../../convex/_generated/api';
 
 export default function Page() {
   const [isModalOpen, setModalOpen] = useState(false);

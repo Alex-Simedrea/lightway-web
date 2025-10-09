@@ -1,6 +1,6 @@
-import { api } from '@convex/_generated/api';
 import { fetchMutation, fetchQuery } from 'convex/nextjs';
 import { NextRequest, NextResponse } from 'next/server';
+import { api } from '../../../../convex/_generated/api';
 
 export async function POST(request: NextRequest) {
   try {
