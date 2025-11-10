@@ -74,7 +74,7 @@ export default function Page() {
       }
       
       return {
-        label: (index + 1).toString(),
+        label: light.name,
         errorRate,
         latency: avgLatency,
         scans: scanCount,
@@ -104,10 +104,10 @@ export default function Page() {
               <Lightbulb size={20} />
               {lights?.length || 0} lights
             </span>{' '}
-            registered, covering{' '}
+            registered, with{' '}
             <span className='text-foreground flex items-center gap-1'>
               <Scan size={20} />
-              20m²
+              {totalScans} total scans
             </span>
             .
           </div>
@@ -147,32 +147,24 @@ export default function Page() {
         </div>
       ) : (
         <MainCard
-          title='All Lights'
-          subtitle='Light Systems'
+          title='DPIT Expo 2025'
+          subtitle='Information System'
           icon={<Lightbulb size={18} />}
           items={lightsData}
           lightCount={lights?.length || 0}
           totalScans={totalScans}
         >
-          <div className='flex gap-4 p-2 text-black'>
-            <div className='flex flex-col rounded-2xl bg-gray-100 px-5 py-4 shadow-sm'>
-              <span className='font-onest text-xl font-bold'>{lights?.length || 0}</span>
-              <span className='font-onest text-sm font-semibold'>lights</span>
+          <div className='flex w-full gap-4 pb-2 text-black'>
+            <div className='flex flex-1 flex-col rounded-2xl bg-gray-100 px-5 py-4'>
+              <span className='font-onest text-2xl font-bold'>{lights?.length || 0}</span>
+              <span className='font-onest text-base font-semibold'>lights</span>
             </div>
-            <div className='flex flex-col rounded-2xl bg-gray-100 p-4 shadow-sm'>
-              <span className='font-onest text-xl font-bold'>{(lights?.length || 0) * 10} m²</span>
-              <span className='font-onest text-sm font-semibold'>covered</span>
+            <div className='flex flex-1 flex-col rounded-2xl bg-gray-100 p-4'>
+              <span className='font-onest text-2xl font-bold'>{totalScans}</span>
+              <span className='font-onest text-base font-semibold'>total scans</span>
             </div>
-            <ScanChartCardPositive />
-            <div className='flex flex-col rounded-xl bg-gray-100 px-5 py-4 shadow-sm'>
-              <div className='flex justify-end'>
-                <button className='rounded bg-white px-3 py-1 text-sm font-semibold shadow-sm hover:bg-gray-200'>
-                  <div className='flex items-center gap-1 font-bold text-black'>
-                    Manage Map
-                    <Pencil className='h-4 w-4' />
-                  </div>
-                </button>
-              </div>
+            <div className='flex-[2]'>
+              <ScanChartCardPositive scans={scans || []} />
             </div>
           </div>
         </MainCard>

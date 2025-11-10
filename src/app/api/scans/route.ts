@@ -16,7 +16,13 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    if (!Array.isArray(date)) {
+    // Use system time if date is not provided
+    const scanDate = date !== undefined 
+      ? date 
+      : [new Date().toISOString()];
+    
+    // Validate date format if provided
+    if (date !== undefined && !Array.isArray(date)) {
       return NextResponse.json(
         { error: 'date must be an array of strings' },
         { status: 400 }
@@ -52,7 +58,7 @@ export async function POST(request: NextRequest) {
     // Add the scan
     const scanId = await fetchMutation(api.scans.addScan, {
       lightId: light._id,
-      date,
+      date: scanDate,
       latency,
       error,
     });

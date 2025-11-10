@@ -29,6 +29,25 @@ type LedRowProps = LedData & {
   onLabelClick: () => void;
 };
 
+function getLightColor(name: string): { bg: string; shadow: string } {
+  const nameLower = name.toLowerCase();
+  
+  if (nameLower.includes('red')) {
+    return { bg: 'bg-red-500', shadow: 'shadow-[0_0_10px_4px_rgba(239,68,68,0.8)]' };
+  } else if (nameLower.includes('blue')) {
+    return { bg: 'bg-blue-500', shadow: 'shadow-[0_0_10px_4px_rgba(59,130,246,0.8)]' };
+  } else if (nameLower.includes('green')) {
+    return { bg: 'bg-green-500', shadow: 'shadow-[0_0_10px_4px_rgba(34,197,94,0.8)]' };
+  } else if (nameLower.includes('yellow')) {
+    return { bg: 'bg-yellow-400', shadow: 'shadow-[0_0_10px_4px_rgba(250,204,21,0.8)]' };
+  } else if (nameLower.includes('white')) {
+    return { bg: 'bg-white', shadow: 'shadow-[0_0_10px_4px_rgba(255,255,255,1)]' };
+  }
+  
+  // Default color if no match
+  return { bg: 'bg-blue-500', shadow: 'shadow-[0_0_10px_4px_rgba(59,130,246,0.8)]' };
+}
+
 function LedRow({
   label,
   errorRate,
@@ -37,19 +56,17 @@ function LedRow({
   lastScanned,
   onLabelClick
 }: LedRowProps) {
+  const lightColor = getLightColor(label);
+  
   return (
     <div className='grid w-full grid-cols-[2fr_1.5fr_1.5fr_1fr_2.5fr_auto] items-center rounded-2xl bg-gray-100 p-3'>
       <div
-        className='flex cursor-pointer items-center gap-2'
+        className='flex cursor-pointer items-center gap-4'
         onClick={onLabelClick}
       >
-        <img
-          src='/images/Led.png'
-          alt='led'
-          className='h-7 w-7 object-contain p-0'
-        />
+        <div className={`h-5 w-5 rounded-full ${lightColor.bg} ${lightColor.shadow}`}/>
         <span className='text-sm font-semibold text-gray-900'>
-          LED Light {label}
+          {label}
         </span>
       </div>
 
@@ -59,7 +76,9 @@ function LedRow({
         {scans} scans
       </span>
       <span className='text-sm font-semibold text-gray-900'>
-        Last Scanned {lastScanned} ago
+        {lastScanned === 'Never' ? 'Never scanned' : 
+         lastScanned === 'Just now' ? 'Scanned just now' : 
+         `Last scanned ${lastScanned} ago`}
       </span>
       <div className='flex items-center justify-center gap-5'>
         <button className='hover:text-gray-600' title='Edit'>

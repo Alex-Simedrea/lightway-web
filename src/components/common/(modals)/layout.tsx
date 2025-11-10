@@ -18,6 +18,25 @@ type ModalLayoutProps = {
   setModalOpen: (open: boolean) => void;
 };
 
+function getLightColor(name: string): { bg: string; shadow: string } {
+  const nameLower = name.toLowerCase();
+  
+  if (nameLower.includes('red')) {
+    return { bg: 'bg-red-500', shadow: 'shadow-[0_0_10px_4px_rgba(239,68,68,0.9)]' };
+  } else if (nameLower.includes('blue')) {
+    return { bg: 'bg-blue-500', shadow: 'shadow-[0_0_10px_4px_rgba(59,130,246,0.9)]' };
+  } else if (nameLower.includes('green')) {
+    return { bg: 'bg-green-500', shadow: 'shadow-[0_0_10px_4px_rgba(34,197,94,0.9)]' };
+  } else if (nameLower.includes('yellow')) {
+    return { bg: 'bg-yellow-400', shadow: 'shadow-[0_0_10px_4px_rgba(250,204,21,0.9)]' };
+  } else if (nameLower.includes('white')) {
+    return { bg: 'bg-white', shadow: 'shadow-[0_0_10px_4px_rgba(255,255,255,1)]' };
+  }
+  
+  // Default color if no match
+  return { bg: 'bg-blue-500', shadow: 'shadow-[0_0_10px_4px_rgba(59,130,246,0.9)]' };
+}
+
 export default function ModalLayout({
   label,
   errorRate,
@@ -28,6 +47,7 @@ export default function ModalLayout({
   lightId,
   setModalOpen
 }: ModalLayoutProps) {
+  const lightColor = getLightColor(label);
   return (
     <div className='relative h-full w-full p-2 pt-10'>
       <Button
@@ -40,7 +60,9 @@ export default function ModalLayout({
       </Button>
       <div className='absolute top-0 right-4 flex items-center gap-2'>
         <h2 className='text-xs font-medium text-gray-400'>
-          Last Edit {lastEdit} ago
+          {lastEdit === 'N/A' || lastEdit === 'Unknown' ? 'Never edited' : 
+           lastEdit === 'Just now' ? 'Edited just now' : 
+           `Last edited ${lastEdit} ago`}
         </h2>
         <Button
           variant='outline'
@@ -62,14 +84,10 @@ export default function ModalLayout({
         <div>
           <div className='grid grid-cols-6 gap-3.5'>
             <div className='col-span-3 row-span-2 rounded-xl border border-gray-200 bg-white p-4'>
-              <div>
-                <img
-                  src='/images/Led.png'
-                  alt={`LED Strip ${label}`}
-                  className='mx-auto max-h-25 max-w-full object-contain'
-                />
+              <div className='flex flex-col items-center gap-4'>
+                <div className={`h-20 w-20 rounded-full ${lightColor.bg} ${lightColor.shadow}`} />
                 <h1 className='text-black-500 text-3xl font-semibold'>
-                  Led Strip {label}
+                  {label}
                 </h1>
               </div>
             </div>
@@ -98,7 +116,9 @@ export default function ModalLayout({
                 Last scan
               </div>
               <div className='font-medium text-green-600'>
-                {lastScanned} ago
+                {lastScanned === 'Never' ? 'Never' : 
+                 lastScanned === 'Just now' ? 'Just now' : 
+                 `${lastScanned} ago`}
               </div>
             </div>
 

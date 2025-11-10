@@ -1,5 +1,5 @@
-//fake data again - o sa schimbam asta
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { useMemo } from 'react';
 import {
   Line,
   LineChart,
@@ -9,37 +9,94 @@ import {
   YAxis
 } from 'recharts';
 
-const data = [
-  { name: 'Mon', scans: 1400 },
-  { name: 'Tue', scans: 300 },
-  { name: 'Wed', scans: 500 },
-  { name: 'Thu', scans: 850 },
-  { name: 'Fri', scans: 1200 },
-  { name: 'Sat', scans: 700 },
-  { name: 'Sun', scans: 800 },
-  { name: 'Mon', scans: 400 },
-  { name: 'Tue', scans: 300 },
-  { name: 'Wed', scans: 500 },
-  { name: 'Thu', scans: 450 },
-  { name: 'Fri', scans: 600 },
-  { name: 'Sat', scans: 700 },
-  { name: 'Sun', scans: 800 }
-];
+type ScanChartCardNegativeProps = {
+  scans: Array<{
+    date: string | string[];
+    lightId: string;
+    latency: number;
+    error: boolean;
+  }>;
+};
 
-export default function ScanChartCardNegative() {
+export default function ScanChartCardNegative({ scans }: ScanChartCardNegativeProps) {
+  // Process scans data by hour for the last 24 hours
+  const chartData = useMemo(() => {
+    const now = new Date();
+    const last24Hours = [];
+    
+    // Create array of last 24 hours
+    for (let i = 23; i >= 0; i--) {
+      const hourDate = new Date(now);
+      hourDate.setHours(now.getHours() - i, 0, 0, 0);
+      
+      const hour = hourDate.getHours();
+      const hourLabel = hour === 0 ? '12am' : 
+                       hour < 12 ? `${hour}am` : 
+                       hour === 12 ? '12pm' : 
+                       `${hour - 12}pm`;
+      
+      last24Hours.push({
+        date: hourDate,
+        name: hourLabel,
+        scans: 0
+      });
+    }
+    
+    // Count scans for each hour
+    scans.forEach(scan => {
+      // Handle date as array (from schema)
+      const dates = Array.isArray(scan.date) ? scan.date : [scan.date];
+      
+      dates.forEach(dateStr => {
+        const scanDate = new Date(dateStr);
+        scanDate.setMinutes(0, 0, 0);
+        
+        const hourData = last24Hours.find(hour => 
+          hour.date.getTime() === scanDate.getTime()
+        );
+        
+        if (hourData) {
+          hourData.scans++;
+        }
+      });
+    });
+    
+    return last24Hours.map(({ name, scans }) => ({ name, scans }));
+  }, [scans]);
+
+  const totalScansLast24Hours = useMemo(() => {
+    return chartData.reduce((sum, hour) => sum + hour.scans, 0);
+  }, [chartData]);
+
+  // Determine if trend is positive (comparing first half vs second half of 24h period)
+  const isPositiveTrend = useMemo(() => {
+    const firstHalf = chartData.slice(0, 12).reduce((sum, hour) => sum + hour.scans, 0);
+    const secondHalf = chartData.slice(12).reduce((sum, hour) => sum + hour.scans, 0);
+    return secondHalf >= firstHalf;
+  }, [chartData]);
+
+  const formatNumber = (num: number) => {
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}k`;
+    return num.toString();
+  };
+
   return (
-    <div className='w-full rounded-xl bg-gray-100 p-4 shadow-sm sm:w-auto'>
+    <div className='h-full w-full rounded-xl bg-gray-100 p-4 shadow-sm'>
       <div className='flex items-center gap-1 font-bold text-black'>
-        1.7k scans this week
-        <ArrowDown className='h-6 w-6' />
+        {formatNumber(totalScansLast24Hours)} scans last 24h
+        {isPositiveTrend ? (
+          <ArrowUpRight className='h-6 w-6' />
+        ) : (
+          <ArrowDown className='h-6 w-6' />
+        )}
       </div>
       <ResponsiveContainer width='100%' height={35}>
-        <LineChart data={data}>
+        <LineChart data={chartData}>
           <Line
             type='monotone'
             dataKey='scans'
-            stroke='#dc2626'
-            strokeWidth={3}
+            stroke={isPositiveTrend ? '#22c55e' : '#dc2626'}
+            strokeWidth={2}
             dot={false}
           />
           <XAxis dataKey='name' hide />
