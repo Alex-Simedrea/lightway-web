@@ -58,7 +58,7 @@ export default function Page() {
     if (!scans) return [];
     
     const now = new Date();
-    const last24Hours = [];
+    const last24Hours: Array<{ date: Date; name: string; scans: number }> = [];
     
     for (let i = 23; i >= 0; i--) {
       const hourDate = new Date(now);
@@ -101,7 +101,7 @@ export default function Page() {
     if (!scans) return [];
     
     const now = new Date();
-    const last24Hours = [];
+    const last24Hours: Array<{ date: Date; name: string; alerts: number }> = [];
     
     for (let i = 23; i >= 0; i--) {
       const hourDate = new Date(now);
@@ -388,7 +388,7 @@ export default function Page() {
                   cx='50%'
                   cy='50%'
                   labelLine={false}
-                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                  label={({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(0)}%`}
                   outerRadius={80}
                   fill='#8884d8'
                   dataKey='value'

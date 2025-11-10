@@ -22,7 +22,7 @@ export default function ScanChartCardPositive({ scans }: ScanChartCardPositivePr
   // Process scans data by hour for the last 24 hours
   const chartData = useMemo(() => {
     const now = new Date();
-    const last24Hours = [];
+    const last24Hours: Array<{ date: Date; name: string; scans: number }> = [];
     
     // Create array of last 24 hours
     for (let i = 23; i >= 0; i--) {
