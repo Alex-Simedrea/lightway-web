@@ -80,7 +80,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       <div className='space-y-3 p-2'>
-        <div className='flex flex-col gap-3 rounded-[28px] bg-stone-900 p-3'>
+        {/* <div className='flex flex-col gap-3 rounded-[28px] bg-stone-900 p-3'>
           <NotificationCard
             title='Ad Request from Sephora'
             time='12m'
@@ -105,7 +105,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               Notifications
             </span>
           </div>
-        </div>
+        </div> */}
 
         <SidebarMenu>
           <SidebarMenuItem>
